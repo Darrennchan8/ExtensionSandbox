@@ -1,0 +1,237 @@
+<template id="buttonToggle">
+	<style>
+		p.label {
+			font-family: sans-serif;
+			cursor: default;
+			font-size: 15px;
+			margin: 0 25px 0 0;
+			flex-grow: 1;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+		div.container {
+			display: flex;
+		}
+		div.centerer {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+		div#slider {
+			width: 50px;
+			height: 20px;
+			align-self: flex-end;
+			cursor: pointer;
+			border-radius: 10px;
+			transition: background-color 250ms;
+		}
+		div#slider.active {
+			background-color: #4CAF50;
+		}
+		div#slider.active > div#knob {
+			margin-left: 30px;
+		}
+		div#slider.inactive {
+			background-color: #9E9E9E;
+		}
+		div#slider.inactive > div#knob {
+			margin-right: 30px;
+		}
+		div#slider > div#knob {
+			width: 16px;
+			height: 16px;
+			border-radius: 16px;
+			background-color: white;
+			margin: 2px 2px 2px 2px;
+			transition: margin 250ms;
+		}
+	</style>
+	<div class="container">
+		<p class="label">
+			<slot></slot>
+		</p>
+		<div class="centerer">
+			<div id="slider" class="inactive">
+				<div id="knob">
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template id="sectionDrawer">
+	<style>
+		div.container {
+			display: flex;
+			flex-direction: column;
+		}
+		div.labels {
+			display: flex;
+			margin-bottom: 15px;
+			flex-direction: row;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+		div.labels > p {
+			cursor: pointer;
+			font-size: 16px;
+			padding: 0 10px 0 10px;
+			margin: 0;
+			background-color: white;
+			border-bottom: 1px solid #E0E0E0;
+			transition: background-color 250ms;
+		}
+		div.labels > p:nth-child(-n+1) {
+			border-right: 1px solid #E0E0E0;
+		}
+		div.labels > p[active] {
+			background-color: #EEEEEE;
+			cursor: default;
+		}
+		::slotted(*) {
+			display: none;
+		}
+		::slotted([active]) {
+			display: block;
+		}
+	</style>
+	<div class="container">
+		<div class="labels">
+		</div>
+		<slot id="sections"></slot>
+	</div>
+</template>
+
+<template id="section">
+	<slot class="container"></slot>
+</template>
+
+<template id="expanding-list">
+	<style>
+		div#obj > div#expanded_list {
+			transform: scaleY(0);
+			transition: transform 250ms, max-height 250ms;
+			transform-origin: top;
+			max-height: 0;
+			overflow-y: hidden;
+		}
+		div#obj > div.aligner > img#arrow {
+			transition: transform 250ms;
+			transform: rotate(-90deg);
+		}
+		div#obj[expanded] > div.aligner > img#arrow {
+			transform: rotate(0);
+		}
+		div#obj[expanded] > div#expanded_list {
+			transform: scaleY(1);
+			max-height: 200px;
+		}
+		div#obj {
+			transition: border-radius 250ms, background-color 250ms;
+			padding: 10px;
+			background-color: #E0E0E0;
+			border-radius: 0;
+		}
+		div#obj[expanded] {
+			border-radius: 10px;
+			background-color: #9E9E9E;
+		}
+		div#obj > div.aligner > p {
+			margin: 0 0 0 3px;
+			user-select: none;
+			flex-grow: 1;
+			align-self: center;
+		}
+		div.aligner {
+			display: flex;
+			flex-direction: row;
+			cursor: pointer;
+		}
+		::slotted(p) {
+			margin: 0;
+		}
+		::slotted(ul) {
+			padding: 5px 8px 5px 15px;
+			cursor: default;
+			user-select: none;
+			margin: 0;
+		}
+	</style>
+	<div id="obj">
+		<div class="aligner">
+			<img id="arrow" src="/common/arrow.svg"/>
+			<p>
+				<slot></slot>
+			</p>
+		</div>
+		<div id="expanded_list">
+			<slot name="details"></slot>
+		</div>
+	</div>
+</template>
+
+<template id="settings-panel">
+	<style>
+		:host {
+			min-width: 100%;
+			max-width: 100%;
+			min-height: 100%;
+			max-height: 100%;
+			display: flex;
+			margin: 0;
+			position: absolute;
+			flex-direction: row;
+		}
+		div.nav_drawer {
+			flex-grow: 1;
+			flex-shrink: 1;
+			min-height: 100%;
+			max-height: 100%;
+			position: absolute;
+			padding: 10px;
+			border-right: 1px solid #E0E0E0;
+		}
+		div.content {
+			flex-grow: 4;
+			flex-shrink: 1;
+			position: absolute;
+			min-height: 100%;
+			max-height: 100%;
+			padding: 10px;
+		}
+	</style>
+	<div class="nav_drawer">
+		<slot></slot>
+	</div>
+	<div class="content"></div>
+</template>
+
+<template id="material-section">
+	<style>
+		::slotted(*) {
+			cursor: pointer;
+		}
+		slot.subsection ::slotted(*) {
+			padding-left: 15px;
+		}
+		div.subsection ::slotted(*) {
+			user-select: none;
+			font: 20px sans-serif, Roboto;
+		}
+		div.subsection {
+			user-select: none;
+			font: 20px sans-serif, Roboto;
+			padding: 5px;
+		}
+		div.subsection {
+			cursor: pointer;
+		}
+	</style>
+	<div class="subsection" expanded>
+		<slot></slot>
+	</div>
+</template>

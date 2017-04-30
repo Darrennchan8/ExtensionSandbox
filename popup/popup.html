@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Options</title>
+	<script src="/common/view.js"></script>
+</head>
+<body>
+	<script src="popup.js"></script>
+	<section-drawer>
+		<drawer-section label="Permissions">
+			<toggle-button>Tabs</toggle-button>
+		</drawer-section>
+		<drawer-section label="Extensions">
+			<expanding-list id="add_extension">
+				<p>Add new...</p>
+				<ul slot="details">
+					<li>
+						<a href="#" id="install_web_store">From Chrome Web Store...</a>
+					</li>
+					<li>
+						<a href="#" id="install_crx">From .crx...</a>
+					</li>
+					<li>
+						<a href="#" id="install_folder">From folder...</a>
+					</li>
+				</ul>
+			</expanding-list>
+		</drawer-section>
+	</section-drawer>
+</body>
+</html>

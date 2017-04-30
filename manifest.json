@@ -1,0 +1,17 @@
+{
+	"manifest_version": 2,
+	"name": "Extension Sandbox",
+	"version": "0.1",
+	"description": "Allows for installing sandboxed chrome extensions which provide granular permissions control",
+	"author": "Darren Chan",
+	"background": {
+		"scripts": ["utils.js", "background.js"],
+		"persistent": true
+	},
+	"browser_action": {
+		"default_popup": "popup/popup.html"
+	},
+	"permissions": ["tabs"],
+	"incognito": "not_allowed",
+	"optional_permissions": []
+}
